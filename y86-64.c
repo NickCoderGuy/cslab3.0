@@ -172,7 +172,7 @@ void executeStage(int icode, int ifun, wordType valA, wordType valB, wordType va
 
             *valE = valB + valA;
 		
-	    if(((valA < 0) == (valB < 0)) == (valB < 0) && (*valE < 0) != (valA < 0) && (*valE < 0)){
+	    if(((valB < 0) == (valA < 0)) && (((*valE) < 0) != (valA < 0)) && (*valE < 0)){
 
                 setFlags(TRUE,FALSE,TRUE);
                 
@@ -190,11 +190,17 @@ void executeStage(int icode, int ifun, wordType valA, wordType valB, wordType va
 
             }
 
-	    else if(((valA < 0) == (valB < 0)) == (valB < 0) && (*valE < 0) != (valA < 0)){
+	    else if(((valB < 0) == (valA < 0)) && ((*valE < 0) != (valA < 0))){
 
                 setFlags(FALSE,FALSE,TRUE);
 
             }
+
+	    else{
+	    
+		setFlags(FALSE,FALSE,FALSE);
+
+	    }
 
         }
 
@@ -202,7 +208,7 @@ void executeStage(int icode, int ifun, wordType valA, wordType valB, wordType va
 
             *valE = valB - valA;
 	    
-	    if(((valA < 0) == (valB < 0)) == (valB < 0) && (*valE < 0) != (valA < 0) && (*valE < 0)){
+	    if(((valB < 0) == (valA < 0)) && ((*valE < 0) != (valA < 0)) && (*valE < 0)){
 
                 setFlags(TRUE,FALSE,TRUE);
                 
@@ -220,18 +226,25 @@ void executeStage(int icode, int ifun, wordType valA, wordType valB, wordType va
 
             }
 
-	    else if(((valA < 0) == (valB < 0)) == (valB < 0) && (*valE < 0) != (valA < 0)){
+	    else if(((valB < 0) == (valA < 0)) && ((*valE < 0) != (valA < 0))){
 
                 setFlags(FALSE,FALSE,TRUE);
 
             }
+
+	     else{
+
+                setFlags(FALSE,FALSE,FALSE);
+
+            }
+
 
         }
         if(ifun == XOR){
 
             *valE = valB ^ valA;
 		
-	    if(((valA < 0) == (valB < 0)) == (valB < 0) && (*valE < 0) != (valA < 0) && (*valE < 0)){
+	    if(((valB < 0) == (valA < 0)) && ((*valE < 0) != (valA < 0)) && (*valE < 0)){
 
                 setFlags(TRUE,FALSE,TRUE);
                 
@@ -248,11 +261,18 @@ void executeStage(int icode, int ifun, wordType valA, wordType valB, wordType va
 
             }
 
-	    else if(((valA < 0) == (valB < 0)) == (valB < 0) && (*valE < 0) != (valA < 0)){
+	    else if(((valB < 0) == (valA < 0)) && ((*valE < 0) != (valA < 0))){
 
                 setFlags(FALSE,FALSE,TRUE);
 
             }
+
+	     else{
+
+                setFlags(FALSE,FALSE,FALSE);
+
+            }
+
 
         }
 
@@ -260,7 +280,7 @@ void executeStage(int icode, int ifun, wordType valA, wordType valB, wordType va
 
             *valE = valB & valA;
 		
-	    if(((valA < 0) == (valB < 0)) == (valB < 0) && (*valE < 0) != (valA < 0) && (*valE < 0)){
+	    if(((valB < 0) == (valA < 0)) && ((*valE < 0) != (valA < 0)) && (*valE < 0)){
 
                 setFlags(TRUE,FALSE,TRUE);
                 
@@ -277,11 +297,18 @@ void executeStage(int icode, int ifun, wordType valA, wordType valB, wordType va
 
             }
 
-	    else if(((valA < 0) == (valB < 0)) == (valB < 0) && (*valE < 0) != (valA < 0)){
+	    else if(((valB < 0) == (valA < 0)) && ((*valE < 0) != (valA < 0))){
 
                 setFlags(FALSE,FALSE,TRUE);
 
             }
+
+	     else{
+
+                setFlags(FALSE,FALSE,FALSE);
+
+            }
+
 
         }
         
@@ -363,14 +390,14 @@ void writebackStage(int icode, int rA, int rB, wordType valE, wordType valM) {
 }
 
 void pcUpdateStage(int icode, wordType valC, wordType valP, bool Cnd, wordType valM) {
- 
+	
 	if(icode != JXX){
 	    setPC(valP);
 	}
 
 	if(icode == JXX){
-	
-		if(Cnd == 1){
+		
+		if(Cnd == TRUE){
 		
 			setPC(valC);
 		
